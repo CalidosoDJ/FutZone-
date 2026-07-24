@@ -1,14 +1,10 @@
-import NavBar from "@/app/components/publico/NavBar";
-import ContenidoPrincipal from "@/app/components/publico/ContenidoPrincipal";
-import Footer from "@/app/components/publico/Footer";
+import React from 'react'
+import Apoyoequipo from '@/app/components/public/Apoyoequipo'
 
-export default function Home() {
-
+export default function Apoyo() {
   return (
     <>
-      <NavBar />
-      <ContenidoPrincipal />
-      <Footer />
+      <Apoyoequipo />
     </>
-  );
+  )
 }

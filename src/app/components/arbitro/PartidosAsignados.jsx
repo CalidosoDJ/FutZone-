@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useArbitro } from "@/app/context/ArbitroContext";
 
 import SidebarArbitro from "./SidebarArbitro";
 import TarjetaPartido from "./TarjetaPartido";
@@ -10,39 +11,7 @@ export default function PartidosAsignados() {
   const [buscar, setBuscar] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("Todos");
   const [orden, setOrden] = useState("fecha");
-
-  const partidos = [
-    {
-      id: 25,
-      local: "Atlético FC",
-      visitante: "Juventus",
-      cancha: "FutZone Norte",
-      fecha: "15/07/2026",
-      hora: "6:00 PM",
-      categoria: "Sub-20",
-      estado: "Pendiente",
-    },
-    {
-      id: 26,
-      local: "Millonarios",
-      visitante: "Nacional",
-      cancha: "FutZone Centro",
-      fecha: "16/07/2026",
-      hora: "8:00 PM",
-      categoria: "Libre",
-      estado: "En Curso",
-    },
-    {
-      id: 27,
-      local: "Barcelona",
-      visitante: "Real Madrid",
-      cancha: "FutZone Sur",
-      fecha: "18/07/2026",
-      hora: "7:00 PM",
-      categoria: "Senior",
-      estado: "Pendiente",
-    },
-  ];
+  const { partidos } = useArbitro();
 
   const convertirFecha = (fecha) => {
     const [dia, mes, anio] = fecha.split("/");

@@ -13,19 +13,12 @@ import {
 } from "react-icons/fa";
 import InfoItem from "./InfoItem";
 import CardDato from "./CardDato";
+import { useArbitro } from "@/app/context/ArbitroContext";
 
 export default function PerfilArbitro({ onEditar }) {
-  const arbitro = {
-    nombre: "Carlos Pérez",
-    correo: "carlos.perez@futzone.com",
-    telefono: "320 456 7890",
-    ciudad: "Popayán",
-    categoria: "Árbitro Nacional",
-    calificacion: 4.9,
-    partidos: 128,
-    ingreso: "15 Enero 2025",
-    foto: "https://i.pravatar.cc/300?img=15",
-  };
+  
+ const { arbitro } = useArbitro(); 
+   
 
   return (
     <section className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -101,7 +94,7 @@ export default function PerfilArbitro({ onEditar }) {
           <CardDato
             icon={<FaFutbol />}
             titulo="Partidos Arbitrados"
-            valor={arbitro.partidos}
+           valor={arbitro.partidosDirigidos}
             color="text-green-600"
           />
 

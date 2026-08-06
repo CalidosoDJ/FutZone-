@@ -2,45 +2,10 @@
 
 import SidebarArbitro from "./SidebarArbitro";
 import TarjetaNotificacion from "./TarjetaNotificacion";
+import { useArbitro } from "@/app/context/ArbitroContext";
 
 export default function NotificacionArbitro() {
-  const notificaciones = [
-    {
-      id: 1,
-      icono: "⚽",
-      titulo: "Nuevo partido asignado",
-      descripcion:
-        "Se te asignó el partido Atlético FC vs Juventus para el día 15 de julio.",
-      tiempo: "Hace 5 minutos",
-      leida: false,
-    },
-    {
-      id: 2,
-      icono: "📅",
-      titulo: "Cambio de horario",
-      descripcion:
-        "El partido Millonarios vs Nacional fue reprogramado para las 8:00 PM.",
-      tiempo: "Hace 30 minutos",
-      leida: false,
-    },
-    {
-      id: 3,
-      icono: "✅",
-      titulo: "Resumen aprobado",
-      descripcion:
-        "El resumen del partido Barcelona vs Real Madrid fue aprobado.",
-      tiempo: "Hace 2 horas",
-      leida: true,
-    },
-    {
-      id: 4,
-      icono: "🔔",
-      titulo: "Actualización del sistema",
-      descripcion: "Se realizaron mejoras en el módulo de árbitros.",
-      tiempo: "Ayer",
-      leida: true,
-    },
-  ];
+  const { notificaciones } = useArbitro();
   return (
     <main className="bg-gray-100 min-h-screen">
       <SidebarArbitro />
@@ -61,7 +26,8 @@ export default function NotificacionArbitro() {
 
             <div className="bg-green-100 border border-green-200 rounded-xl px-5 py-3">
               <p className="text-sm font-semibold text-green-700">
-                3 Notificaciones nuevas
+                {notificaciones.filter((n) => !n.leida).length} Notificaciones
+                nuevas
               </p>
             </div>
           </header>
@@ -90,8 +56,8 @@ export default function NotificacionArbitro() {
                 key={notificacion.id}
                 icono={notificacion.icono}
                 titulo={notificacion.titulo}
-                descripcion={notificacion.descripcion}
-                tiempo={notificacion.tiempo}
+                descripcion={notificacion.mensaje}
+                tiempo={notificacion.fecha}
                 leida={notificacion.leida}
               />
             ))}

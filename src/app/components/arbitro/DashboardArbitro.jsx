@@ -1,6 +1,7 @@
 "use client";
 
 import SidebarArbitro from "./SidebarArbitro";
+import { useArbitro } from "@/app/context/ArbitroContext";
 import {
   FaFutbol,
   FaCalendarAlt,
@@ -11,10 +12,11 @@ import EstadisticaCard from "./EstadisticaCard";
 import TarjetaPartido from "./TarjetaPartido";
 
 export default function DashboardArbitro() {
+  const { partidos, arbitro } = useArbitro();
   const estadisticas = [
     {
       titulo: "Partidos Hoy",
-      valor: 3,
+      valor: partidos.length,
       icono: <FaFutbol />,
       color: "bg-green-500",
     },
@@ -28,14 +30,14 @@ export default function DashboardArbitro() {
 
     {
       titulo: "Calificación",
-      valor: "4.9",
+      valor: arbitro.calificacion,
       icono: <FaStar />,
       color: "bg-yellow-500",
     },
 
     {
       titulo: "Partidos Dirigidos",
-      valor: 125,
+      valor: arbitro.partidosDirigidos,
       icono: <FaClipboardCheck />,
       color: "bg-purple-500",
     },
@@ -75,33 +77,16 @@ export default function DashboardArbitro() {
           </div>
         </section>
 
-        <section className="mt-10">
-          <h2 className="text-2xl font-bold mb-6">Próximos partidos</h2>
-
-          <div className="grid lg:grid-cols-2 gap-6">
-            <TarjetaPartido
-              id={25}
-              local="Atlético FC"
-              visitante="Juventus"
-              cancha="FutZone Norte"
-              fecha="15/07/2026"
-              hora="6:00 PM"
-              categoria="Sub-20"
-              estado="Pendiente"
-            />
-
-            <TarjetaPartido
-              id={26}
-              local="Millonarios"
-              visitante="Nacional"
-              cancha="FutZone Centro"
-              fecha="16/07/2026"
-              hora="8:00 PM"
-              categoria="Libre"
-              estado="En Curso"
-            />
-          </div>
-        </section>
+        <div className="grid lg:grid-cols-2 gap-6">
+          {partidos
+            .filter(
+              (partido) =>
+                partido.estado === "Pendiente" || partido.estado === "En Curso",
+            )
+            .map((partido) => (
+              <TarjetaPartido key={partido.id} {...partido} />
+            ))}
+        </div>
       </section>
     </main>
   );

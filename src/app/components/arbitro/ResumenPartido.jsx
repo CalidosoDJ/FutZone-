@@ -8,28 +8,31 @@ import MarcadorPartido from "./MarcadorPartido";
 import HeaderResumen from "./HeaderResumen";
 import PanelObservaciones from "./PanelObservaciones";
 import BotonesResumen from "./BotonesResumen";
+import { useArbitro } from "@/app/context/ArbitroContext";
 
 export default function ResumenPartido() {
   // Inicializados explícitamente como números enteros
+
   const [golesLocal, setGolesLocal] = useState(0);
   const [golesVisitante, setGolesVisitante] = useState(0);
   const [observaciones, setObservaciones] = useState("");
   const [calificacion, setCalificacion] = useState(0);
   const [eventos, setEventos] = useState([]);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const { partidoSeleccionado, finalizarPartido } = useArbitro();
 
   function agregarEvento(eventoNuevo) {
     setEventos((eventosAnteriores) => [...eventosAnteriores, eventoNuevo]);
   }
-
-  const partido = {
-    local: "Atlético FC",
-    visitante: "Juventus",
-    cancha: "FutZone Norte",
-    fecha: "15 Julio 2026",
-    hora: "6:00 PM",
-    categoria: "Libre",
+  const partido = partidoSeleccionado || {
+    local: "",
+    visitante: "",
+    cancha: "",
+    fecha: "",
+    hora: "",
+    categoria: "",
   };
+
   const { local, visitante, cancha, fecha, hora, categoria } = partido;
   return (
     <main className="bg-gray-100 min-h-screen">
@@ -92,7 +95,16 @@ export default function ResumenPartido() {
             abierto={mostrarModal}
             onClose={() => setMostrarModal(false)}
             onConfirmar={() => {
+              finalizarPartido(partido.id, {
+                golesLocal,
+                golesVisitante,
+                observaciones,
+                calificacion,
+                eventos,
+              });
+
               alert("Resumen guardado correctamente.");
+
               setMostrarModal(false);
             }}
             partido={partido}

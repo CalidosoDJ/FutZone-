@@ -6,6 +6,8 @@ import {
   FaClock,
   FaFutbol,
 } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { useArbitro } from "@/app/context/ArbitroContext";
 
 export default function TarjetaPartido({
   id,
@@ -17,6 +19,9 @@ export default function TarjetaPartido({
   categoria,
   estado,
 }) {
+  const router = useRouter();
+
+  const { setPartidoSeleccionado } = useArbitro();
   const colorEstado = {
     Pendiente: "bg-yellow-100 text-yellow-700",
 
@@ -26,6 +31,20 @@ export default function TarjetaPartido({
 
     Cancelado: "bg-red-100 text-red-700",
   };
+  function dirigirPartido() {
+  setPartidoSeleccionado({
+    id,
+    local,
+    visitante,
+    cancha,
+    fecha,
+    hora,
+    categoria,
+    estado,
+  });
+
+  router.push("/arbitro/resumen-partido");
+}
 
   return (
     <article className="bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-6 border border-gray-100">
@@ -78,18 +97,19 @@ export default function TarjetaPartido({
       </div>
 
       <button
-        className="
-                    mt-8
-                    w-full
-                    bg-green-600
-                    hover:bg-green-700
-                    text-white
-                    py-3
-                    rounded-xl
-                    font-semibold
-                    transition
-                "
-      >
+  onClick={dirigirPartido}
+  className="
+      mt-8
+      w-full
+      bg-green-600
+      hover:bg-green-700
+      text-white
+      py-3
+      rounded-xl
+      font-semibold
+      transition
+  "
+>
         Dirigir Partido
       </button>
     </article>

@@ -16,7 +16,18 @@ export default function ModalResumen({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-      <section className="bg-white rounded-2xl shadow-xl w-full max-w-3xl p-8">
+      <section
+        className="
+bg-white
+rounded-2xl
+shadow-xl
+w-full
+max-w-3xl
+max-h-[90vh]
+overflow-y-auto
+p-8
+"
+      >
         <div className="border-b border-slate-200 pb-5 mb-8">
           <h2 className="text-3xl font-bold text-slate-900">
             Confirmar Resumen
@@ -91,17 +102,13 @@ export default function ModalResumen({
                   key={evento.id}
                   className="rounded-xl border border-slate-200 bg-slate-50 p-4 hover:shadow-md transition"
                 >
-                  <p>
-                    <strong>{evento.minuto}</strong>
-
-                    {" - "}
-
-                    {evento.tipo}
+                  <p className="text-slate-800 font-semibold">
+                   <strong>{evento.minuto}&apos;</strong> - {evento.tipo}
                   </p>
 
-                  <p>{evento.jugador}</p>
+                  <p className="text-slate-700">{evento.jugador}</p>
 
-                  <p className="text-gray-500">{evento.equipo}</p>
+                  <p className="text-slate-600">{evento.equipo}</p>
                 </div>
               ))}
             </div>

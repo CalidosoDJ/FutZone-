@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useArbitro } from "@/app/context/ArbitroContext";
 
 import {
   FaHome,
@@ -14,6 +15,7 @@ import {
 
 export default function SidebarArbitro() {
   const pathname = usePathname();
+  const { arbitro } = useArbitro();
 
   const menu = [
     {
@@ -58,15 +60,15 @@ export default function SidebarArbitro() {
 
         <div className="p-6 flex items-center gap-4">
           <img
-            src="https://i.pravatar.cc/100"
-            alt="Arbitro"
-            className="w-14 h-14 rounded-full border-2 border-green-500"
+            src={arbitro.foto}
+            alt={arbitro.nombre}
+            className="w-14 h-14 rounded-full border-2 border-green-500 object-cover"
           />
 
           <div>
-            <h2 className="font-semibold">Carlos Pérez</h2>
+            <h2 className="font-semibold">{arbitro.nombre}</h2>
 
-            <p className="text-sm text-gray-400">Árbitro Profesional</p>
+            <p className="text-sm text-gray-400">{arbitro.categoria}</p>
 
             <span className="text-green-400 text-xs">🟢 Disponible</span>
           </div>
